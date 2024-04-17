@@ -1,0 +1,25 @@
+CREATE FUNCTION [dbo].[fn_Remover_Espacos_Iniciais_Finais]
+(
+    @texto VARCHAR(MAX)
+)
+RETURNS VARCHAR(MAX)
+AS
+BEGIN
+    DECLARE @resultado VARCHAR(MAX);
+    
+    SET @resultado = @texto;
+    
+    -- Remove espaços no início da string
+    WHILE LEFT(@resultado, 1) = ' '
+    BEGIN
+        SET @resultado = RIGHT(@resultado, LEN(@resultado) - 1);
+    END
+    
+    -- Remove espaços no final da string
+    WHILE RIGHT(@resultado, 1) = ' '
+    BEGIN
+        SET @resultado = LEFT(@resultado, LEN(@resultado) - 1);
+    END
+    
+    RETURN @resultado;
+END;
